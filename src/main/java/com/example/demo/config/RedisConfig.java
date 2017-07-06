@@ -19,12 +19,12 @@ public class RedisConfig {
     @Bean(destroyMethod = "close")
     public JedisCluster jedisCluster() {
         Set<HostAndPort> nodes = new HashSet<>();
-        nodes.add(new HostAndPort("redis", 6379));
-        nodes.add(new HostAndPort("redis", 6380));
-        nodes.add(new HostAndPort("redis", 6381));
-        nodes.add(new HostAndPort("redis1", 6379));
-        nodes.add(new HostAndPort("redis1", 6380));
-        nodes.add(new HostAndPort("redis1", 6381));
+        nodes.add(new HostAndPort("192.168.33.212", 6379));
+        nodes.add(new HostAndPort("192.168.33.212", 6380));
+        nodes.add(new HostAndPort("192.168.33.212", 6381));
+        nodes.add(new HostAndPort("192.168.33.219", 6379));
+        nodes.add(new HostAndPort("192.168.33.219", 6380));
+        nodes.add(new HostAndPort("192.168.33.219", 6381));
         return new JedisCluster(nodes);
     }
 }
