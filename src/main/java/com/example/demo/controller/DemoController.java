@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.commons.constants.ResponseCodeConstants;
+import com.example.demo.model.Demo;
+import com.example.demo.model.response.BaseResponse;
 import com.example.demo.model.response.GenericResponse;
 import com.example.demo.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +28,28 @@ public class DemoController {
     }
 
     @RequestMapping(value = "/redis/{key}", method = RequestMethod.GET)
-    public GenericResponse<String> test(@PathVariable("key") String key) {
+    public GenericResponse<String> redis(@PathVariable("key") String key) {
 
         return new GenericResponse<>(ResponseCodeConstants.SUCCESS, demoService.redisGet(key));
+    }
+
+    @RequestMapping(value = "/db", method = RequestMethod.GET)
+    public GenericResponse<Demo> db() {
+
+        return new GenericResponse<>(ResponseCodeConstants.SUCCESS, demoService.db());
+    }
+
+    @RequestMapping(value = "/async", method = RequestMethod.GET)
+    public BaseResponse async() {
+
+        demoService.async();
+
+        return new BaseResponse(ResponseCodeConstants.SUCCESS);
+    }
+
+    @RequestMapping(value = "/integration", method = RequestMethod.GET)
+    public BaseResponse integration() {
+
+        return new BaseResponse(ResponseCodeConstants.SUCCESS);
     }
 }

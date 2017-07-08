@@ -1,6 +1,9 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Demo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.JedisCluster;
 
@@ -10,6 +13,7 @@ import redis.clients.jedis.JedisCluster;
  * on 2017/7/6.
  */
 @Service
+@Slf4j
 public class DemoService {
 
     private final JedisCluster jedisCluster;
@@ -21,5 +25,15 @@ public class DemoService {
 
     public String redisGet(String key) {
         return jedisCluster.get(key);
+    }
+
+    public Demo db(){
+        return new Demo();
+    }
+
+    @Async
+    public void async(){
+
+        log.info("async execute finish");
     }
 }
