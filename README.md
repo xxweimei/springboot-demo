@@ -37,7 +37,9 @@ controller层注解控制请求报文，返回报文打印
 
 ## lombok 对象类添加@DATA注解即可省去get set方法
 
-##health check接口
+## health check接口
+
+## dockerfile镜像制作文件
 
 # 代码层次说明
 controller(参数校验 简单逻辑) -> service(复杂逻辑 公共逻辑等 可选 service可以调用其他service) -> dao(数据库) / integration(调用其他API接口)
