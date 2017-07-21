@@ -2,6 +2,8 @@ package com.example.demo.config;
 
 import brave.Tracing;
 import brave.context.slf4j.MDCCurrentTraceContext;
+import brave.http.HttpAdapter;
+import brave.http.HttpSampler;
 import brave.http.HttpTracing;
 import brave.okhttp3.TracingCallFactory;
 import brave.spring.webmvc.TracingHandlerInterceptor;
@@ -60,7 +62,14 @@ public class ZipkinConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     HttpTracing httpTracing() {
-        return HttpTracing.create(tracing());
+        return HttpTracing.create(tracing()).toBuilder()
+                .serverSampler(new HttpSampler() {
+                    @Override
+                    public <Req> Boolean trySample(HttpAdapter<Req, ?> httpAdapter, Req req) {
+                        if (httpAdapter.path(req).startsWith("/status")) return false;
+                        return null;
+                    }
+                }).build();
     }
 
     @Bean
